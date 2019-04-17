@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 class SearchPage extends Component {
-  state = {
-    selectValue: ''
-  }
   shelfChange(book, e) {
     this.props.onShelfChange(book, e.target.value)
   }
@@ -23,14 +20,14 @@ class SearchPage extends Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-              {this.props.books ? this.props.books.map((book) => (
+              {this.props.books === [] ? (<div> </div>) : this.props.books.map((book) => (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
                           <div className="book-cover"
                             style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                           <div className="book-shelf-changer">
-                            <select value={this.state.selectValue} onChange={(e) => this.shelfChange(book, e)}>
+                            <select onChange={(e) => this.shelfChange(book, e)}>
                               <option value="move" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
@@ -43,7 +40,7 @@ class SearchPage extends Component {
                         <div className="book-authors">{book.authors}</div>
                       </div>
                     </li>
-                  )) : (<div></div>)}
+                  ))}
               </ol>
             </div>
           </div>

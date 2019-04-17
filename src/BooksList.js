@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom'
 
 
 class BooksList extends Component {
-  state = {
-    selectValue: ''
-  }
   shelfChange(book, e) {
     this.props.onShelfChange(book, e.target.value)
   }
@@ -28,7 +25,7 @@ class BooksList extends Component {
                           <div className="book-cover"
                             style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                           <div className="book-shelf-changer">
-                            <select value={this.state.selectValue} onChange={(e) => this.shelfChange(book, e)}>
+                            <select onChange={(e) => this.shelfChange(book, e)}>
                               <option value="move" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
@@ -55,10 +52,10 @@ class BooksList extends Component {
                         <div className="book-top">
                           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                           <div className="book-shelf-changer">
-                            <select  value={this.state.selectValue} onChange={(e) => this.shelfChange(book, e)}>
+                            <select onChange={(e) => this.shelfChange(book, e)}>
                               <option value="move" disabled>Move to...</option>
-                              <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
+                              <option value="currentlyReading">Currently Reading</option>
                               <option value="read">Read</option>
                               <option value="none">None</option>
                             </select>
@@ -82,11 +79,11 @@ class BooksList extends Component {
                         <div className="book-top">
                           <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                           <div className="book-shelf-changer">
-                            <select  value={this.state.selectValue} onChange={(e) => this.shelfChange(book, e)}>
+                            <select onChange={(e) => this.shelfChange(book, e)}>
                               <option value="move" disabled>Move to...</option>
+                              <option value="read">Read</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
-                              <option value="read">Read</option>
                               <option value="none">None</option>
                             </select>
                           </div>

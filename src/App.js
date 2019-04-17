@@ -29,6 +29,11 @@ class BooksApp extends React.Component {
     })
   }
   booksSearch = (query) => {
+    if(query === '') {
+      this.setState(() => ({
+        searchedBooks: []
+      }))
+    }
     BooksAPI.search(query).then((b) => {
       if(Array.isArray(b)){
         this.setState(() => ({
