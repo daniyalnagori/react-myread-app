@@ -13,34 +13,44 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll()
       .then((books) => {
-        this.setState(() => ({
-          books
-        }))
+        this.setState({ books })
       })
   }
   shelfChanger = (book, shelf) => {
     BooksAPI.update(book, shelf).then((book) => {
       BooksAPI.getAll()
         .then((books) => {
-          this.setState(() => ({
-            books
-          }))
+          this.setState({ books })
         })
-    })
+    }).catch((e) => console.log(e))
   }
+
+  BookShelfFind(id) {
+    let shelve = this.state.books.filter((book) => book.id === id)
+    
+    return (shelve.length !== 0) ? shelve[0].shelf : 'none'
+  }
+
   booksSearch = (query) => {
-    if(query === '') {
-      this.setState(() => ({
+    (query) ? BooksAPI.search(query)
+      .then((books) => {
+        if(books.error) {
+          this.setState({
+            searchedBooks: []
+          })
+          return
+        }
+        let newBooks = books.map((book) => {
+          book.shelf = this.BookShelfFind(book.id)
+          return book
+        })
+        this.setState({ searchedBooks: newBooks })
+      }).catch((e) => {
+        console.log('Error')
+      })
+      : this.setState({
         searchedBooks: []
-      }))
-    }
-    BooksAPI.search(query).then((b) => {
-      if(Array.isArray(b)){
-        this.setState(() => ({
-          searchedBooks: b
-        }))
-      }
-    })
+      })
   }
   render() {
     return (
