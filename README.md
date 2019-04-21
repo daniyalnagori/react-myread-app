@@ -7,7 +7,7 @@ MyReads is a books management web app for an individual where he can search and 
 * Run `npm install`
 * Start the server `npm start`
 
-##License
+## License
 
 The contents of this repository are under MIT License
 
